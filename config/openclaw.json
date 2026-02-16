@@ -1,0 +1,74 @@
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "anthropic": {
+        "baseUrl": "https://api.anthropic.com",
+        "api": "anthropic-messages",
+        "models": [
+          {"id": "claude-haiku-4-5", "name": "Claude Haiku 4.5", "reasoning": true, "input": ["text"], "contextWindow": 1000000, "maxTokens": 128000},
+          {"id": "claude-opus-4-6", "name": "Claude Opus 4.6", "reasoning": true, "input": ["text"], "contextWindow": 1000000, "maxTokens": 128000}
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {"primary": "anthropic/claude-haiku-4-5", "fallbacks": ["anthropic/claude-opus-4-6"]},
+      "workspace": "/data/workspace",
+      "contextTokens": 1000000,
+      "compaction": {"mode": "safeguard"},
+      "maxConcurrent": 4,
+      "subagents": {"maxConcurrent": 8}
+    }
+  },
+  "tools": {
+    "web": {
+      "search": {"enabled": true},
+      "fetch": {"enabled": true}
+    }
+  },
+  "messages": {"ackReactionScope": "group-mentions"},
+  "commands": {"native": "auto", "nativeSkills": "auto"},
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {"enabled": true},
+        "command-logger": {"enabled": true},
+        "bootstrap-extra-files": {"enabled": true},
+        "boot-md": {"enabled": true}
+      }
+    }
+  },
+  "channels": {
+    "whatsapp": {
+      "dmPolicy": "allowlist",
+      "selfChatMode": true,
+      "groupPolicy": "allowlist",
+      "mediaMaxMb": 50,
+      "debounceMs": 0
+    },
+    "telegram": {
+      "dmPolicy": "allowlist",
+      "groupPolicy": "allowlist",
+      "streamMode": "partial"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "tailscale": {"mode": "off", "resetOnExit": false},
+    "nodes": {
+      "denyCommands": ["camera.snap", "camera.clip", "screen.record", "calendar.add", "contacts.add", "reminders.add"]
+    }
+  },
+  "skills": {"install": {"nodeManager": "npm"}},
+  "plugins": {
+    "entries": {
+      "whatsapp": {"enabled": true},
+      "telegram": {"enabled": true}
+    }
+  }
+}

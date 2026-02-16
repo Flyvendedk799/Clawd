@@ -1,0 +1,29 @@
+# Environment and secrets – never commit
+.env
+.env.local
+.env.*.local
+*.env
+!.env.example
+
+# Local openclaw data (credentials, sessions)
+.openclaw/
+openclaw-data/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Editor
+.idea/
+.vscode/
+*.sublime-*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Node
+node_modules/

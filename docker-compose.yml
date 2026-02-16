@@ -1,0 +1,19 @@
+# Local development – run with: docker compose up -d
+# For Railway deployment, use the Dockerfile directly (Railway connects via Git)
+services:
+  openclaw:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-8080}:8080"
+    env_file:
+      - .env
+    environment:
+      - PORT=8080
+    volumes:
+      - openclaw-data:/data
+    restart: unless-stopped
+
+volumes:
+  openclaw-data:
