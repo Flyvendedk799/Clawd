@@ -13,3 +13,4 @@ ENV OPENCLAW_CUSTOM_CONFIG=/app/config/openclaw.json
 
 # Railway sets PORT automatically – nginx listens on it
 # Persistent data is at /data (mount Railway volume there)
+# Trigger: 2026-02-16
